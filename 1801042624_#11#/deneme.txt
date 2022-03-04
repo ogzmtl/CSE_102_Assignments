@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int read_array(char* filename);
+
+int main() {
+  
+     char *file_name = "list.txt";
+
+        read_array(file_name);
+
+
+ return 0;
+}
+int read_array(char* filename){
+
+    int *f_array = (int*)malloc(sizeof(int)); 
+    int counter = 1 ;
+    char *ptr,*divide,*str;
+    double val;
+    FILE *fp;
+
+        fp = fopen(filename,"r");
+
+        divide = strtok(str, ",");
+        while(divide != NULL)
+        {           
+            val = strtod(divide, &ptr);
+            
+            f_array[counter-1] = val;
+            counter++;
+            
+            divide = strtok(NULL, ",");
+                if(divide != NULL)/*If next component isn't NULL create a new area space in the array */
+                { 
+                    f_array =(int*)realloc(f_array, counter*sizeof(int));
+                }
+        }
+        for(int i = 0 ; i< counter ; i++)printf("array[%d] = %d - ",i,f_array[i]);
+
+
+    fclose(fp);
+
+return 0;
+}
